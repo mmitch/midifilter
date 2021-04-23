@@ -1,5 +1,5 @@
 /*
- * config.h - configuration interface
+ * config.c - current configuration
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,13 +20,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CONFIG_H_
-#define _CONFIG_H_
+#include "config.h"
 
-#include <stdbool.h>
+static const bool channel_active[] = {
+	true,   // channel 1
+	false,
+	true,
+	true,
+	true,   // channel 5
+	true,
+	true,
+	true,
+	true,
+	true,   // channel 10
+	true,
+	true,
+	true,
+	true,
+	true,   // channel 15
+	true,
+	true,   // MIDI events without a channel
+};
 
-#include "common.h"
 
-bool is_channel_active(midi_channel ch);
-
-#endif
+bool is_channel_active(midi_channel ch) {
+	return channel_active[ch];
+}

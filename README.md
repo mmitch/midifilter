@@ -17,7 +17,7 @@ configuration
 -------------
 
 Until the interactive mode is finished, configuration is done at
-compile time in `config.h`.
+compile time in `config.c`.
 
 
 copyright

@@ -78,7 +78,7 @@ static midi_channel get_midi_channel(snd_seq_event_t *midi_event) {
 snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event) {
 	// filter by channel
 	midi_channel channel = get_midi_channel(midi_event);
-	if (channel_active[channel]) {
+	if (is_channel_active(channel)) {
 		return midi_event;
 	} else {
 		return NULL;
