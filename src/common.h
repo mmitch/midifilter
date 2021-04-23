@@ -28,6 +28,7 @@
 // don't warn on intentionally unused variables
 #define UNUSED(x) (void)(x)
 
+#define CHANNEL_MAX 16
 typedef int midi_channel;
 
 #endif

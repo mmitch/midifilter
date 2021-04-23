@@ -71,7 +71,7 @@ static midi_channel get_midi_channel(snd_seq_event_t *midi_event) {
 		return midi_event->data.control.channel;
 
 	default:
-		return 16;
+		return CHANNEL_MAX;
 	}
 }
 

@@ -32,8 +32,8 @@ static char* filter_status(midi_channel ch) {
 }
 
 void print_configuration() {
-	for (midi_channel ch = 0; ch < 16; ch++) {
+	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
 		printf("MIDI channel %2d is %s\n", ch+1, filter_status(ch));
 	}
-	printf("Events without channel are %s\n", filter_status(16));
+	printf("Events without channel are %s\n", filter_status(CHANNEL_MAX));
 }
