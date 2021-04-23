@@ -1,5 +1,5 @@
 /*
- * main.c - main program that orchestrates all other parts
+ * display.c - show configuration
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,42 +20,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-
-#include "alsa.h"
-#include "common.h"
-#include "filter.h"
 #include "display.h"
 
-int main() {
-	printf("%s is starting\n", PROGRAM_NAME);
+#include <stdio.h>
 
-	bool alsa_init = alsa_open();
-	if (!alsa_init) {
-		goto SHUTDOWN;
+#include "common.h"
+#include "config.h"
+
+static char* filter_status(midi_channel ch) {
+	return is_channel_active(ch) ? "ACTIVE" : "filtered";
+}
+
+void print_configuration() {
+	for (midi_channel ch = 0; ch < 16; ch++) {
+		printf("MIDI channel %2d is %s\n", ch+1, filter_status(ch));
 	}
-	puts("MIDI connections established");
-
-	puts("");
-	print_configuration();
-	puts("");
-
-	while(1) {
-		snd_seq_event_t *midi_event = alsa_read();
-		if (midi_event == NULL) {
-			continue;
-		}
-		midi_event = filter_midi_event(midi_event);
-		if (midi_event == NULL) {
-			continue;
-		}
-		alsa_write(midi_event);
-	}
-
-SHUTDOWN:
-	if (alsa_init && alsa_close()) {
-		puts("MIDI connections closed");
-	}
-
-	return 0;
+	printf("Events without channel are %s\n", filter_status(16));
 }

@@ -4,10 +4,10 @@
 - [X] initialize repo
 - [X] working build pipeline
 
-* [1/2] todos
+* [2/2] todos
 
 - [X] filter MIDI channels
-- [ ] output current configuration
+- [X] output current configuration
 
 * [0/5] features
 
