@@ -1,0 +1,20 @@
+* [2/3] prototyping
+
+- [X] full MIDI thru (all in->out)
+- [X] initialize repo
+- [ ] working build pipeline
+
+* [0/2] todos
+
+- [ ] filter MIDI channels
+- [ ] output current configuration
+
+* [0/5] features
+
+- [ ] unit tests
+- [ ] code coverage
+- [ ] allow interactive configuration (2 threads?)
+- [ ] toggle MIDI channels
+- [ ] remap controllers
+- [ ] send Program Change
+- [ ] remap MIDI channels
