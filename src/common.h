@@ -23,8 +23,6 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include <stdint.h>
-
 #define PROGRAM_NAME "midifilter"
 
 // don't warn on intentionally unused variables
