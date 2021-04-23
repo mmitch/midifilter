@@ -20,6 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _ALSA_H_
+#define _ALSA_H_
+
 #include <stdbool.h>
 
 #include <alsa/asoundlib.h>
@@ -28,3 +31,5 @@ bool alsa_open();
 snd_seq_event_t* alsa_read();
 void alsa_write (snd_seq_event_t *midi_event);
 bool alsa_close();
+
+#endif
