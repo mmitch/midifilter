@@ -4,9 +4,9 @@
 - [X] initialize repo
 - [X] working build pipeline
 
-* [0/2] todos
+* [1/2] todos
 
-- [ ] filter MIDI channels
+- [X] filter MIDI channels
 - [ ] output current configuration
 
 * [0/5] features

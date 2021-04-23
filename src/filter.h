@@ -1,5 +1,5 @@
 /*
- * common.h - common definitions and global configuration
+ * filter.h - filter interface
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,14 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _FILTER_H_
+#define _FILTER_H_
 
-#define PROGRAM_NAME "midifilter"
+#include <alsa/asoundlib.h>
 
-// don't warn on intentionally unused variables
-#define UNUSED(x) (void)(x)
-
-typedef int midi_channel;
+snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event);
 
 #endif

@@ -24,6 +24,7 @@
 
 #include "alsa.h"
 #include "common.h"
+#include "filter.h"
 
 int main() {
 	printf("%s is starting\n", PROGRAM_NAME);
@@ -36,9 +37,14 @@ int main() {
 
 	while(1) {
 		snd_seq_event_t *midi_event = alsa_read();
-		if (midi_event != NULL) {
-			alsa_write(midi_event);
+		if (midi_event == NULL) {
+			continue;
 		}
+		midi_event = filter_midi_event(midi_event);
+		if (midi_event == NULL) {
+			continue;
+		}
+		alsa_write(midi_event);
 	}
 
 SHUTDOWN:

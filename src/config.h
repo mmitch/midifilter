@@ -1,5 +1,5 @@
 /*
- * common.h - common definitions and global configuration
+ * config.h - static configuration
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,14 +20,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _CONFIG_H_
+#define _CONFIG_H_
 
-#define PROGRAM_NAME "midifilter"
+#include <stdbool.h>
 
-// don't warn on intentionally unused variables
-#define UNUSED(x) (void)(x)
-
-typedef int midi_channel;
+const bool channel_active[] = {
+	true,   // channel 1
+	false,
+	true,
+	true,
+	true,   // channel 5
+	true,
+	true,
+	true,
+	true,
+	true,   // channel 10
+	true,
+	true,
+	true,
+	true,
+	true,   // channel 15
+	true,
+	true,   // MIDI events without a channel
+};
 
 #endif
