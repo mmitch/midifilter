@@ -29,7 +29,11 @@
 #include "terminal.h"
 
 static char* filter_status(midi_channel ch) {
-	return is_channel_active(ch) ? TERM_INVERT "ACTIVE" TERM_RESET : TERM_DIM "filtered" TERM_RESET;
+	return is_channel_active(ch) ? TERM_INVERT TERM_BOLD "ACTIVE" TERM_RESET : TERM_DIM "filtered" TERM_RESET;
+}
+
+static char* filter_status_brief(midi_channel ch) {
+	return is_channel_active(ch) ? TERM_INVERT TERM_BOLD : TERM_DIM;
 }
 
 void print_configuration() {
@@ -37,4 +41,12 @@ void print_configuration() {
 		printf("MIDI channel  " TERM_BOLD "%2d" TERM_RESET " is %s\n", ch+1, filter_status(ch));
 	}
 	printf("MIDI w/o channel is %s\n", filter_status(CHANNEL_MAX));
+}
+
+void print_configuration_brief() {
+	printf("MIDI channels: ");
+	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
+		printf("%s%2d%s  ", filter_status_brief(ch), ch+1, TERM_RESET);
+	}
+	printf("%sother%s\n", filter_status_brief(CHANNEL_MAX), TERM_RESET);
 }

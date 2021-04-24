@@ -24,5 +24,6 @@
 #define _DISPLAY_H_
 
 void print_configuration();
+void print_configuration_brief();
 
 #endif
