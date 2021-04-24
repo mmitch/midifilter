@@ -34,6 +34,7 @@ typedef struct {
 	bool channel_argument;
 	bool numeric_argument;
 	handle_cmd_fn handler;
+	const char* description;
 } cmd;
 
 const cmd* get_command(char key);

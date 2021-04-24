@@ -23,6 +23,9 @@
 #ifndef _DISPLAY_H_
 #define _DISPLAY_H_
 
+#include "command.h"
+
+void print_command(const cmd* command);
 void print_configuration();
 void print_configuration_brief();
 void print_error(const char* message, const char* reason);

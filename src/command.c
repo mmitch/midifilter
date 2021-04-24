@@ -24,19 +24,36 @@
 
 #include <stddef.h>
 
+#include "display.h"
 #include "state.h"
 
-#define CMD(K, C, A, FN) { .key = (K), .channel_argument = (C), .numeric_argument = (A), .handler = FN }
+#define CMD(K, C, A, D, FN) { .key = (K), .channel_argument = (C), .numeric_argument = (A), .handler = FN, .description = D }
 
 static void quit(midi_channel ch, int arg) {
 	UNUSED(ch);
 	UNUSED(arg);
+
 	stop_running();
 }
 
-static cmd commands[] = {
-	CMD('q', false, false, quit),
+static void show_help(midi_channel, int);
+
+static const cmd commands[] = {
+	CMD('q', false, false, "quit midifilter", quit),
+	CMD('?', false, false, "list available commands", show_help),
+	CMD('h', false, false, "list available commands", show_help),
 };
+
+static void show_help(midi_channel ch, int arg) {
+	UNUSED(ch);
+	UNUSED(arg);
+
+	print_spacer();
+	for (long unsigned int i=0; i<ARRAY_LENGTH(commands); i++) {
+		print_command(&commands[i]);
+	}
+	print_spacer();
+}
 
 const cmd* get_command(char key) {
 	for (long unsigned int i=0; i<ARRAY_LENGTH(commands); i++) {
