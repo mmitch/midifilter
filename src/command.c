@@ -51,12 +51,20 @@ static void toggle_midi_channel(midi_channel ch, int arg) {
 	toggle_channel(ch);
 }
 
+static void toggle_midi_no_channel(midi_channel ch, int arg) {
+	UNUSED(ch);
+	UNUSED(arg);
+
+	toggle_channel(CHANNEL_MAX);
+}
+
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
 	CMD('h', false, false, "help: list available commands", show_help),
 	CMD('l', false, false, "list current configuration", show_configuration),
 	CMD('o', true,  false, "on/off: toggle midi channel", toggle_midi_channel),
+	CMD('O', false, false, "on/off: toggle midi events w/o channel", toggle_midi_no_channel),
 	CMD('q', false, false, "quit midifilter", quit),
 	CMD('?', false, false, "help: list available commands", show_help),
 };
