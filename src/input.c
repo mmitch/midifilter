@@ -32,11 +32,35 @@
 #define BUFLEN 16
 static char buffer[BUFLEN];
 
-char* format_in_buffer(char c) {
+static char* format_char_to_buffer(const char c) {
 	if (snprintf(buffer, BUFLEN, "%c", c) >= BUFLEN) {
 		buffer[BUFLEN-1] = '\0';
 	}
 	return buffer;
+}
+
+static char* format_int_to_buffer(const int i) {
+	if (snprintf(buffer, BUFLEN, "%d", i) >= BUFLEN) {
+		buffer[BUFLEN-1] = '\0';
+	}
+	return buffer;
+}
+
+static void process_command(const cmd* command) {
+	midi_channel channel = -1;
+	int arg = -1;
+
+	if (command->channel_argument) {
+		print_prompt("MIDI channel");
+		scanf("%d", &channel);
+		if (channel < 1 || channel > CHANNEL_MAX) {
+			print_error("MIDI channel out of range", format_int_to_buffer(channel));
+			return;
+		}
+		channel--;
+	}
+
+	command->handler(channel, arg);
 }
 
 void* handle_user_input(void* vargp) {
@@ -52,10 +76,10 @@ void* handle_user_input(void* vargp) {
 
 		command = get_command(input);
 		if (command != NULL) {
-			command->handler(-1, -1);
+			process_command(command);
 		}
 		else {
-			print_error("unknown command", format_in_buffer(input));
+			print_error("unknown command", format_char_to_buffer(input));
 		}
 
 		print_spacer();

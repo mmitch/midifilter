@@ -9,12 +9,12 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [1/9] features
+* [2/9] features
 
 - [ ] unit tests
 - [ ] code coverage
 - [X] allow interactive configuration (2 threads?)
-- [ ] toggle MIDI channels
+- [X] toggle MIDI channels
 - [ ] remap controllers
 - [ ] send Program Change
 - [ ] remap MIDI channels

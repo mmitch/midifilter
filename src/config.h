@@ -28,5 +28,6 @@
 #include "common.h"
 
 bool is_channel_active(midi_channel ch);
+void toggle_channel(midi_channel ch);
 
 #endif

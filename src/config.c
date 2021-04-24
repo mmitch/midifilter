@@ -22,7 +22,7 @@
 
 #include "config.h"
 
-static const bool channel_active[] = {
+static bool channel_active[] = {
 	true,   // channel 1
 	false,
 	true,
@@ -45,4 +45,8 @@ static const bool channel_active[] = {
 
 bool is_channel_active(midi_channel ch) {
 	return channel_active[ch];
+}
+
+void toggle_channel(midi_channel ch) {
+	channel_active[ch] = !channel_active[ch];
 }
