@@ -25,6 +25,7 @@
 
 void print_configuration();
 void print_configuration_brief();
+void print_error(const char* message, const char* reason);
 void print_status(const char* status);
 
 #endif

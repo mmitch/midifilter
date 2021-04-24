@@ -20,11 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-
 #include "alsa.h"
 
 #include "common.h"
+#include "display.h"
 
 static snd_seq_t *sequencer;
 static int port_in;
@@ -35,7 +34,7 @@ bool alsa_open()
 	int err;
 	
 	if ((err = snd_seq_open(&sequencer, "default", SND_SEQ_OPEN_DUPLEX, 0)) != 0) {
-		fprintf(stderr, "alsa: could not open sequencer: %s\n", snd_strerror(err));
+		print_error("alsa: could not open sequencer", snd_strerror(err));
 		return false;
 	}
 
@@ -45,7 +44,7 @@ bool alsa_open()
 					  SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE,
 					  SND_SEQ_PORT_TYPE_MIDI_GENERIC);
 	if (port_in < 0) {
-		fprintf(stderr, "alsa: could not open input sequencer port: %s\n", snd_strerror(port_in));
+		print_error("alsa: could not open input sequencer port", snd_strerror(port_in));
 		return false;
 	}
 
@@ -53,7 +52,7 @@ bool alsa_open()
 					  SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ,
 					  SND_SEQ_PORT_TYPE_MIDI_GENERIC);
 	if (port_out < 0) {
-		fprintf(stderr, "alsa: could not open output sequencer port: %s\n", snd_strerror(port_out));
+		print_error("alsa: could not open output sequencer port", snd_strerror(port_out));
 		return false;
 	}
 
@@ -81,7 +80,7 @@ snd_seq_event_t* alsa_read()
 	}
 
 	if (bytes_left == -ENOSPC) {
-		fprintf(stderr, "alsa: dropped some MIDI input events\n");
+		print_error("alsa: dropped some MIDI input events", "queue overflow");
 		return NULL;
 	}
 
@@ -101,17 +100,17 @@ bool alsa_close()
 	int err;
 
 	if ((err = snd_seq_delete_simple_port(sequencer, port_in)) != 0) {
-		fprintf(stderr, "alsa: could not close input sequencer port: %s\n", snd_strerror(err));
+		print_error("alsa: could not close input sequencer port", snd_strerror(err));
 		return false;
 	}
 
 	if ((err = snd_seq_delete_simple_port(sequencer, port_out)) != 0) {
-		fprintf(stderr, "alsa: could not close output sequencer port: %s\n", snd_strerror(err));
+		print_error("alsa: could not close output sequencer port", snd_strerror(err));
 		return false;
 	}
 
 	if ((err = snd_seq_close(sequencer)) != 0) {
-		fprintf(stderr, "alsa: could not close sequencer: %s\n", snd_strerror(err));
+		print_error("alsa: could not close sequencer", snd_strerror(err));
 		return false;
 	}
 

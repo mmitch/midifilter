@@ -51,6 +51,10 @@ void print_configuration_brief() {
 	printf("%sother%s\n", filter_status_brief(CHANNEL_MAX), TERM_RESET);
 }
 
+void print_error(const char* message, const char* reason) {
+	fprintf(stderr, "%s: %s\n", message, reason);
+}
+
 void print_status(const char* status) {
 	puts(status);
 }
