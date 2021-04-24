@@ -23,12 +23,14 @@
 #ifndef _TERMINAL_H_
 #define _TERMINAL_H_
 
-// for now, this is hardcoded to a standard vt100 terminel
+// for now, this is hardcoded to a standard ANSI/VT100 terminel
 
 #define TERM_RESET "\033[0m"
 #define TERM_BOLD "\033[1m"
 #define TERM_DIM "\033[2m"
 #define TERM_UNDERLINE "\033[4m"
 #define TERM_INVERT "\033[7m"
+
+#define TERM_CLEAR_SCREEN "\033[2J"
 
 #endif

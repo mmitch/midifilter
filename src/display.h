@@ -25,6 +25,7 @@
 
 #include "command.h"
 
+void clear_screen();
 void print_command(const cmd* command);
 void print_configuration();
 void print_configuration_brief();

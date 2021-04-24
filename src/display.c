@@ -36,6 +36,10 @@ static char* filter_status_brief(midi_channel ch) {
 	return is_channel_active(ch) ? TERM_INVERT TERM_BOLD : TERM_DIM;
 }
 
+void clear_screen() {
+	printf(TERM_CLEAR_SCREEN);
+}
+
 void print_command(const cmd* command) {
 	printf( TERM_INVERT TERM_BOLD " %c " TERM_RESET " - %s\n", command->key, command->description);
 }

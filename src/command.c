@@ -40,6 +40,7 @@ static void show_configuration(midi_channel ch, int arg) {
 	UNUSED(ch);
 	UNUSED(arg);
 
+	clear_screen();
 	print_configuration();
 }
 
@@ -56,7 +57,7 @@ static void show_help(midi_channel ch, int arg) {
 	UNUSED(ch);
 	UNUSED(arg);
 
-	print_spacer();
+	clear_screen();
 	for (long unsigned int i=0; i<ARRAY_LENGTH(commands); i++) {
 		print_command(&commands[i]);
 	}
