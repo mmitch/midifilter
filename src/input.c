@@ -49,10 +49,15 @@ static char* format_int_to_buffer(const int i) {
 static void process_command(const cmd* command) {
 	midi_channel channel = -1;
 	int arg = -1;
+	int read;
 
 	if (command->channel_argument) {
 		print_prompt("MIDI channel");
-		scanf("%d", &channel);
+		read = scanf("%d", &channel);
+		if (read != 1) {
+			print_error("input could not be parsed", "MIDI channel");
+			return;
+		}
 		if (channel < 1 || channel > CHANNEL_MAX) {
 			print_error("MIDI channel out of range", format_int_to_buffer(channel));
 			return;
@@ -62,7 +67,11 @@ static void process_command(const cmd* command) {
 
 	if (command->argument_name != NULL) {
 		print_prompt(command->argument_name);
-		scanf("%d", &arg);
+		read = scanf("%d", &arg);
+		if (read != 1) {
+			print_error("input could not be parsed", command->argument_name);
+			return;
+		}
 		if (arg < 0 || arg > 127) {
 			print_error("argument out of range", format_int_to_buffer(arg));
 			return;
@@ -76,12 +85,14 @@ void* handle_user_input(void* vargp) {
 	UNUSED(vargp);
 
 	char input;
+	int read;
 	const cmd* command;
+
 	do {
 		print_prompt("command");
 		do {
-			scanf("%c", &input);
-		} while (input == '\n');
+			read = scanf("%c", &input);
+		} while (read != 1 && input == '\n');
 
 		command = get_command(input);
 		if (command != NULL) {
