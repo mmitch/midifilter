@@ -24,7 +24,6 @@
 
 #include <stdio.h>
 
-#include "common.h"
 #include "command.h"
 #include "display.h"
 #include "state.h"
@@ -81,9 +80,7 @@ static void process_command(const cmd* command) {
 	command->handler(channel, arg);
 }
 
-void* handle_user_input(void* vargp) {
-	UNUSED(vargp);
-
+void run_user_input_loop() {
 	char input;
 	int read;
 	const cmd* command;
@@ -104,6 +101,4 @@ void* handle_user_input(void* vargp) {
 
 		print_spacer();
 	} while (continue_running());
-
-	return NULL;
 }

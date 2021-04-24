@@ -32,6 +32,5 @@ bool continue_running() {
 
 void stop_running() {
 	print_status("Stop signalled");
-	print_status("Need to receive at least one additional MIDI event to stop the filter loop...");
 	keep_running = false;
 }

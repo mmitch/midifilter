@@ -23,7 +23,6 @@
 #include <pthread.h>
 
 #include "alsa.h"
-#include "common.h"
 #include "display.h"
 #include "filter.h"
 #include "input.h"
@@ -43,27 +42,15 @@ int main() {
 	print_configuration();
 	print_spacer();
 
-	pthread_t input_thread;
-	pthread_create(&input_thread, NULL, handle_user_input, NULL);
+	pthread_t filter_thread;
+	pthread_create(&filter_thread, NULL, run_midi_filter_loop, NULL);
 
-	while(continue_running()) {
-		snd_seq_event_t *midi_event = alsa_read();
-		if (midi_event == NULL) {
-			continue;
-		}
-		midi_event = filter_midi_event(midi_event);
-		if (midi_event == NULL) {
-			continue;
-		}
-		alsa_write(midi_event);
-	}
+	run_user_input_loop();
 
-	print_spacer();
-
+	pthread_cancel(filter_thread);
+	pthread_join(filter_thread, NULL);
 	print_status("MIDI filter stopped");
 	print_spacer();
-
-	pthread_join(input_thread, NULL);
 
 SHUTDOWN:
 	if (alsa_init && alsa_close()) {
@@ -71,7 +58,7 @@ SHUTDOWN:
 		print_spacer();
 	}
 
-	print_status(PROGRAM_NAME " exited.");
+	print_status(PROGRAM_NAME " exited");
 	print_spacer();
 	return 0;
 }

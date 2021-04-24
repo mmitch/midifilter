@@ -23,8 +23,6 @@
 #ifndef _INPUT_H_
 #define _INPUT_H_
 
-#include <pthread.h>
-
-void* handle_user_input(void* vargp);
+void run_user_input_loop();
 
 #endif

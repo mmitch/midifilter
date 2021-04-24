@@ -23,8 +23,8 @@
 #ifndef _FILTER_H_
 #define _FILTER_H_
 
-#include <alsa/asoundlib.h>
+#include <pthread.h>
 
-snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event);
+void* run_midi_filter_loop(void* vargp);
 
 #endif

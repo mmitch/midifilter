@@ -22,8 +22,9 @@
 
 #include "filter.h"
 
-#include "common.h"
+#include "alsa.h"
 #include "config.h"
+#include "state.h"
 
 // event types: https://www.alsa-project.org/alsa-doc/alsa-lib/group___seq_events.html#gaef39e1f267006faf7abc91c3cb32ea40
 // structs: https://www.alsa-project.org/alsa-doc/alsa-lib/seq__event_8h_source.html
@@ -75,7 +76,7 @@ static midi_channel get_midi_channel(snd_seq_event_t *midi_event) {
 	}
 }
 
-snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event) {
+static snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event) {
 	// filter by channel
 	midi_channel channel = get_midi_channel(midi_event);
 	if (is_channel_active(channel)) {
@@ -83,4 +84,26 @@ snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event) {
 	} else {
 		return NULL;
 	}
+}
+
+void* run_midi_filter_loop(void* vargp) {
+	UNUSED(vargp);
+
+	int old;
+	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &old);
+	pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &old);
+
+	while(continue_running()) {
+		snd_seq_event_t *midi_event = alsa_read();
+		if (midi_event == NULL) {
+			continue;
+		}
+		midi_event = filter_midi_event(midi_event);
+		if (midi_event == NULL) {
+			continue;
+		}
+		alsa_write(midi_event);
+	}
+
+	pthread_exit(0);
 }
