@@ -9,7 +9,7 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [1/8] features
+* [1/9] features
 
 - [ ] unit tests
 - [ ] code coverage
@@ -19,3 +19,4 @@
 - [ ] send Program Change
 - [ ] remap MIDI channels
 - [ ] proper terminal handling using terminfo
+- [ ] remove newlines from keyboard input

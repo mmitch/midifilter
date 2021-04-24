@@ -28,6 +28,7 @@
 #define TERM_RESET "\033[0m"
 #define TERM_BOLD "\033[1m"
 #define TERM_DIM "\033[2m"
+#define TERM_UNDERLINE "\033[4m"
 #define TERM_INVERT "\033[7m"
 
 #endif
