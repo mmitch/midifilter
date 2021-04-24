@@ -9,7 +9,7 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [0/5] features
+* [0/8] features
 
 - [ ] unit tests
 - [ ] code coverage
@@ -18,3 +18,4 @@
 - [ ] remap controllers
 - [ ] send Program Change
 - [ ] remap MIDI channels
+- [ ] proper terminal handling using terminfo

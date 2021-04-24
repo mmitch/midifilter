@@ -1,5 +1,5 @@
 /*
- * display.c - show configuration
+ * terminal.h - terminal control characters
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,21 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "display.h"
+#ifndef _TERMINAL_H_
+#define _TERMINAL_H_
 
-#include <stdio.h>
+// for now, this is hardcoded to a standard vt100 terminel
 
-#include "common.h"
-#include "config.h"
-#include "terminal.h"
+#define TERM_RESET "\033[0m"
+#define TERM_BOLD "\033[1m"
+#define TERM_DIM "\033[2m"
+#define TERM_INVERT "\033[7m"
 
-static char* filter_status(midi_channel ch) {
-	return is_channel_active(ch) ? TERM_INVERT "ACTIVE" TERM_RESET : TERM_DIM "filtered" TERM_RESET;
-}
-
-void print_configuration() {
-	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
-		printf("MIDI channel  " TERM_BOLD "%2d" TERM_RESET " is %s\n", ch+1, filter_status(ch));
-	}
-	printf("MIDI w/o channel is %s\n", filter_status(CHANNEL_MAX));
-}
+#endif
