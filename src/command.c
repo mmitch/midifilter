@@ -36,10 +36,18 @@ static void quit(midi_channel ch, int arg) {
 	stop_running();
 }
 
+static void show_configuration(midi_channel ch, int arg) {
+	UNUSED(ch);
+	UNUSED(arg);
+
+	print_configuration();
+}
+
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
 	CMD('q', false, false, "quit midifilter", quit),
+	CMD('l', false, false, "list current configuration", show_configuration),
 	CMD('?', false, false, "list available commands", show_help),
 	CMD('h', false, false, "list available commands", show_help),
 };
