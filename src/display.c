@@ -72,5 +72,5 @@ void print_spacer() {
 }
 
 void print_status(const char* status) {
-	puts(status);
+	printf(TERM_DIM "%s" TERM_RESET "\n", status);
 }

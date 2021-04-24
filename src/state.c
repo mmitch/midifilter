@@ -22,8 +22,6 @@
 
 #include "state.h"
 
-#include "display.h"
-
 static bool keep_running = true;
 
 bool continue_running() {
@@ -31,6 +29,5 @@ bool continue_running() {
 }
 
 void stop_running() {
-	print_status("Stop signalled");
 	keep_running = false;
 }
