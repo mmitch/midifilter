@@ -9,14 +9,14 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [2/9] features
+* [3/9] features
 
 - [ ] unit tests
 - [ ] code coverage
 - [X] allow interactive configuration (2 threads?)
 - [X] toggle MIDI channels
 - [ ] remap controllers
-- [ ] send Program Change
+- [X] send Program Change
 - [ ] remap MIDI channels
 - [ ] proper terminal handling using terminfo
 - [ ] remove newlines from keyboard input

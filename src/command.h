@@ -32,7 +32,7 @@ typedef void (*handle_cmd_fn)(midi_channel, int);
 typedef struct {
 	char key;
 	bool channel_argument;
-	bool numeric_argument;
+	const char *argument_name;
 	handle_cmd_fn handler;
 	const char* description;
 } cmd;

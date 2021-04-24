@@ -60,6 +60,15 @@ static void process_command(const cmd* command) {
 		channel--;
 	}
 
+	if (command->argument_name != NULL) {
+		print_prompt(command->argument_name);
+		scanf("%d", &arg);
+		if (arg < 0 || arg > 127) {
+			print_error("argument out of range", format_int_to_buffer(arg));
+			return;
+		}
+	}
+
 	command->handler(channel, arg);
 }
 

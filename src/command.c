@@ -26,9 +26,21 @@
 
 #include "config.h"
 #include "display.h"
+#include "alsa.h"
 #include "state.h"
 
-#define CMD(K, C, A, D, FN) { .key = (K), .channel_argument = (C), .numeric_argument = (A), .handler = FN, .description = D }
+#define CMD(K, C, A, D, FN) { .key = (K), .channel_argument = (C), .argument_name = (A), .handler = FN, .description = D }
+
+static void program_change(midi_channel ch, int arg) {
+	snd_seq_event_t program_change;
+
+	snd_seq_ev_clear(&program_change);
+	program_change.type = SND_SEQ_EVENT_PGMCHANGE;
+	program_change.data.control.channel = ch;
+	program_change.data.control.value = arg;
+
+	alsa_write(&program_change);
+}
 
 static void quit(midi_channel ch, int arg) {
 	UNUSED(ch);
@@ -61,12 +73,13 @@ static void toggle_midi_no_channel(midi_channel ch, int arg) {
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
-	CMD('h', false, false, "help: list available commands", show_help),
-	CMD('l', false, false, "list current configuration", show_configuration),
-	CMD('o', true,  false, "on/off: toggle midi channel", toggle_midi_channel),
-	CMD('O', false, false, "on/off: toggle midi events w/o channel", toggle_midi_no_channel),
-	CMD('q', false, false, "quit midifilter", quit),
-	CMD('?', false, false, "help: list available commands", show_help),
+	CMD('h', false, NULL,      "help: list available commands", show_help),
+	CMD('l', false, NULL,      "list current configuration", show_configuration),
+	CMD('o', true,  NULL,      "on/off: toggle midi channel", toggle_midi_channel),
+	CMD('O', false, NULL,      "on/off: toggle midi events w/o channel", toggle_midi_no_channel),
+	CMD('p', true,  "program", "program change: send a Program Change control event", program_change),
+	CMD('q', false, NULL,      "quit midifilter", quit),
+	CMD('?', false, NULL,      "help: list available commands", show_help),
 };
 
 static void show_help(midi_channel ch, int arg) {
