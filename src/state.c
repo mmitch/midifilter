@@ -22,7 +22,7 @@
 
 #include "state.h"
 
-#include <stdio.h>
+#include "display.h"
 
 static bool keep_running = true;
 
@@ -31,7 +31,7 @@ bool continue_running() {
 }
 
 void stop_running() {
-	puts("Stop signalled");
-	puts("Need to receive at least one additional MIDI event to stop the filter loop...");
+	print_status("Stop signalled");
+	print_status("Need to receive at least one additional MIDI event to stop the filter loop...");
 	keep_running = false;
 }

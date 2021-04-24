@@ -21,7 +21,6 @@
  */
 
 #include <pthread.h>
-#include <stdio.h>
 
 #include "alsa.h"
 #include "common.h"
@@ -31,17 +30,17 @@
 #include "state.h"
 
 int main() {
-	printf("%s is starting\n", PROGRAM_NAME);
+	print_status(PROGRAM_NAME " is starting\n");
 
 	bool alsa_init = alsa_open();
 	if (!alsa_init) {
 		goto SHUTDOWN;
 	}
-	puts("MIDI connections established");
+	print_status("MIDI connections established");
 
-	puts("");
+	print_status("");
 	print_configuration();
-	puts("");
+	print_status("");
 
 	pthread_t input_thread;
 	pthread_create(&input_thread, NULL, handle_user_input, NULL);
@@ -58,13 +57,13 @@ int main() {
 		alsa_write(midi_event);
 	}
 
-	puts("MIDI filter stopped");
+	print_status("MIDI filter stopped");
 
 	pthread_join(input_thread, NULL);
 
 SHUTDOWN:
 	if (alsa_init && alsa_close()) {
-		puts("MIDI connections closed");
+		print_status("MIDI connections closed");
 	}
 
 	return 0;

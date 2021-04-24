@@ -50,3 +50,7 @@ void print_configuration_brief() {
 	}
 	printf("%sother%s\n", filter_status_brief(CHANNEL_MAX), TERM_RESET);
 }
+
+void print_status(const char* status) {
+	puts(status);
+}
