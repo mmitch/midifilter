@@ -47,10 +47,10 @@ static void show_configuration(midi_channel ch, int arg) {
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
-	CMD('q', false, false, "quit midifilter", quit),
-	CMD('l', false, false, "list current configuration", show_configuration),
-	CMD('?', false, false, "list available commands", show_help),
 	CMD('h', false, false, "list available commands", show_help),
+	CMD('l', false, false, "list current configuration", show_configuration),
+	CMD('q', false, false, "quit midifilter", quit),
+	CMD('?', false, false, "list available commands", show_help),
 };
 
 static void show_help(midi_channel ch, int arg) {
