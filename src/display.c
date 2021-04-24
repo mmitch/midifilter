@@ -55,6 +55,10 @@ void print_error(const char* message, const char* reason) {
 	fprintf(stderr, "%s: %s\n", message, reason);
 }
 
+void print_spacer() {
+	puts("");
+}
+
 void print_status(const char* status) {
 	puts(status);
 }

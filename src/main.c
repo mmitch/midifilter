@@ -30,17 +30,18 @@
 #include "state.h"
 
 int main() {
-	print_status(PROGRAM_NAME " is starting\n");
+	print_status(PROGRAM_NAME " is starting");
+	print_spacer();
 
 	bool alsa_init = alsa_open();
 	if (!alsa_init) {
 		goto SHUTDOWN;
 	}
 	print_status("MIDI connections established");
+	print_spacer();
 
-	print_status("");
 	print_configuration();
-	print_status("");
+	print_spacer();
 
 	pthread_t input_thread;
 	pthread_create(&input_thread, NULL, handle_user_input, NULL);
@@ -57,14 +58,20 @@ int main() {
 		alsa_write(midi_event);
 	}
 
+	print_spacer();
+
 	print_status("MIDI filter stopped");
+	print_spacer();
 
 	pthread_join(input_thread, NULL);
 
 SHUTDOWN:
 	if (alsa_init && alsa_close()) {
 		print_status("MIDI connections closed");
+		print_spacer();
 	}
 
+	print_status(PROGRAM_NAME " exited.");
+	print_spacer();
 	return 0;
 }
