@@ -1,5 +1,5 @@
 /*
- * common.h - common definitions and global configuration
+ * command.h - command interface
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,17 +20,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _COMMAND_H_
+#define _COMMAND_H_
 
-#define PROGRAM_NAME "midifilter"
+#include "common.h"
 
-// don't warn on intentionally unused variables
-#define UNUSED(x) (void)(x)
+#include <stdbool.h>
 
-#define ARRAY_LENGTH(x) (sizeof((x))/sizeof((x)[0]))
+typedef void (*handle_cmd_fn)(midi_channel, int);
 
-#define CHANNEL_MAX 16
-typedef int midi_channel;
+typedef struct {
+	char key;
+	bool channel_argument;
+	bool numeric_argument;
+	handle_cmd_fn handler;
+} cmd;
+
+const cmd* get_command(char key);
 
 #endif

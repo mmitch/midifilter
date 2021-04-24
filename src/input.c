@@ -25,15 +25,21 @@
 #include <stdio.h>
 
 #include "common.h"
+#include "command.h"
 #include "state.h"
 
 void* handle_user_input(void* vargp) {
 	UNUSED(vargp);
 
 	char input;
-	scanf("%c", &input);
-
-	stop_running();
+	const cmd* command;
+	do {
+		scanf("%c", &input);
+		command = get_command(input);
+		if (command != NULL) {
+			command->handler(-1, -1);
+		}
+	} while (continue_running());
 
 	return NULL;
 }
