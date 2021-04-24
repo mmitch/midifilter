@@ -1,5 +1,5 @@
 /*
- * state.c - global state
+ * input.h - interactive control interface
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,18 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "state.h"
+#ifndef _INPUT_H_
+#define _INPUT_H_
 
-#include <stdio.h>
+#include <pthread.h>
 
-static bool keep_running = true;
+void* handle_user_input(void* vargp);
 
-bool continue_running() {
-	return keep_running;
-}
-
-void stop_running() {
-	puts("Stop signalled");
-	puts("Need to receive at least one additional MIDI event to stop the filter loop...");
-	keep_running = false;
-}
+#endif

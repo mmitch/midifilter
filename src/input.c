@@ -1,5 +1,5 @@
 /*
- * main.c - main program that orchestrates all other parts
+ * input.c - interactive control thread
  *
  * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
@@ -20,52 +20,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <pthread.h>
+#include "input.h"
+
 #include <stdio.h>
 
-#include "alsa.h"
 #include "common.h"
-#include "display.h"
-#include "filter.h"
-#include "input.h"
 #include "state.h"
 
-int main() {
-	printf("%s is starting\n", PROGRAM_NAME);
+void* handle_user_input(void* vargp) {
+	UNUSED(vargp);
 
-	bool alsa_init = alsa_open();
-	if (!alsa_init) {
-		goto SHUTDOWN;
-	}
-	puts("MIDI connections established");
+	char input;
+	scanf("%c", &input);
 
-	puts("");
-	print_configuration();
-	puts("");
+	stop_running();
 
-	pthread_t input_thread;
-	pthread_create(&input_thread, NULL, handle_user_input, NULL);
-
-	while(continue_running()) {
-		snd_seq_event_t *midi_event = alsa_read();
-		if (midi_event == NULL) {
-			continue;
-		}
-		midi_event = filter_midi_event(midi_event);
-		if (midi_event == NULL) {
-			continue;
-		}
-		alsa_write(midi_event);
-	}
-
-	puts("MIDI filter stopped");
-
-	pthread_join(input_thread, NULL);
-
-SHUTDOWN:
-	if (alsa_init && alsa_close()) {
-		puts("MIDI connections closed");
-	}
-
-	return 0;
+	return NULL;
 }

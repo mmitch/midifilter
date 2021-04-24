@@ -23,7 +23,7 @@ SHELL := bash
 
 pkgconfigs := alsa
 warnings   := -Wall -Wextra -Wpedantic -Werror
-libs       := -lm
+libs       := -lpthread
 
 ifeq ($(shell command -v pkg-config),)
   $(error pkg-config not found)
