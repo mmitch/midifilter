@@ -89,7 +89,7 @@ void run_user_input_loop() {
 		print_prompt("command");
 		do {
 			read = scanf("%c", &input);
-		} while (read != 1 && input == '\n');
+		} while (read != 1 || input == '\n');
 
 		command = get_command(input);
 		if (command != NULL) {
