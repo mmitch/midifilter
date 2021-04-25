@@ -31,6 +31,18 @@
 
 #define CMD(K, C, A, D, FN) { .key = (K), .channel_argument = (C), .argument_name = (A), .handler = FN, .description = D }
 
+static void bank_select(midi_channel ch, int arg) {
+	snd_seq_event_t bank_select;
+
+	snd_seq_ev_clear(&bank_select);
+	bank_select.type = SND_SEQ_EVENT_CONTROLLER;
+	bank_select.data.control.channel = ch;
+	bank_select.data.control.param = 0;
+	bank_select.data.control.value = arg;
+
+	alsa_write(&bank_select);
+}
+
 static void program_change(midi_channel ch, int arg) {
 	snd_seq_event_t program_change;
 
@@ -73,6 +85,7 @@ static void toggle_midi_no_channel(midi_channel ch, int arg) {
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
+	CMD('b', true, "bank",     "bank select: send a coarse Bank Select control event (CC#0)", bank_select),
 	CMD('h', false, NULL,      "help: list available commands", show_help),
 	CMD('l', false, NULL,      "list current configuration", show_configuration),
 	CMD('o', true,  NULL,      "on/off: toggle midi channel", toggle_midi_channel),
