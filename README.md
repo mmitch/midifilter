@@ -13,11 +13,23 @@ Changes.
 project home: https://github.com/mmitch/midifilter
 
 
-configuration
--------------
+installation
+------------
 
-Until the interactive mode is finished, configuration is done at
-compile time in `config.c`.
+1. Have the ALSA development files installed (eg. `libasound2-dev`).
+2. Run `make`.
+3. The `midifilter` binary will be placed in the `bin/` directory.
+
+
+usage
+-----
+
+1. Run the `midifilter` binary.
+2. Use `aconnect` to connect MIDI input and output.
+3. Enter `h` at the prompt to get a list of all available commands.
+
+If you want to edit the default configuration of midifilter, edit
+`config.h` and recompile.
 
 
 copyright
