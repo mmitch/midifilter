@@ -62,8 +62,8 @@ static event_data_type get_event_data_type(snd_seq_event_t *midi_event) {
 	}
 }
 
-static midi_channel get_midi_channel(snd_seq_event_t *midi_event) {
-	switch(get_event_data_type(midi_event)) {
+static midi_channel get_midi_channel(snd_seq_event_t *midi_event, event_data_type midi_type) {
+	switch(midi_type) {
 
 	case note:
 		return midi_event->data.note.channel;
@@ -76,14 +76,35 @@ static midi_channel get_midi_channel(snd_seq_event_t *midi_event) {
 	}
 }
 
+static void map_midi_channel(snd_seq_event_t *midi_event, event_data_type midi_type) {
+	switch(midi_type) {
+
+	case note:
+		midi_event->data.note.channel = get_channel_target(midi_event->data.note.channel);
+		break;
+
+	case ctrl:
+		midi_event->data.control.channel = get_channel_target(midi_event->data.control.channel);
+		break;
+
+	default:
+		// nothing to map
+		break;
+	}
+}
+
 static snd_seq_event_t* filter_midi_event(snd_seq_event_t *midi_event) {
 	// filter by channel
-	midi_channel channel = get_midi_channel(midi_event);
-	if (is_channel_active(channel)) {
-		return midi_event;
-	} else {
+	event_data_type midi_type = get_event_data_type(midi_event);
+	midi_channel channel = get_midi_channel(midi_event, midi_type);
+	if (!is_channel_active(channel)) {
 		return NULL;
 	}
+
+	// apply channel mapping
+	map_midi_channel(midi_event, midi_type);
+
+	return midi_event;
 }
 
 void* run_midi_filter_loop(void* vargp) {

@@ -42,9 +42,18 @@ static bool channel_active[] = {
 	true,   // MIDI events without a channel
 };
 
+static midi_channel channel_target[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
 bool is_channel_active(midi_channel ch) {
 	return channel_active[ch];
+}
+
+midi_channel get_channel_target(midi_channel ch) {
+	return channel_target[ch];
+}
+
+void set_channel_target(midi_channel ch, midi_channel target) {
+	channel_target[ch] = target;
 }
 
 void toggle_channel(midi_channel ch) {

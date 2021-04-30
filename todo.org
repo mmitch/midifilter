@@ -9,7 +9,7 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [3/10] features
+* [4/10] features
 
 - [ ] unit tests
 - [ ] code coverage
@@ -17,7 +17,7 @@
 - [X] toggle MIDI channels
 - [ ] remap controllers
 - [X] send Program Change
-- [ ] remap MIDI channels
+- [X] remap MIDI channels
 - [ ] proper terminal handling using terminfo
 - [ ] remove newlines from keyboard input
 - [ ] add install/uninstall targets (also update README)

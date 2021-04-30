@@ -46,9 +46,14 @@ void print_command(const cmd* command) {
 
 void print_configuration() {
 	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
-		printf("MIDI channel  " TERM_BOLD "%2d" TERM_RESET " is %s\n", ch+1, filter_status(ch));
+		midi_channel ch_target = get_channel_target(ch);
+		printf("MIDI channel  " TERM_BOLD "%2d" TERM_RESET " mapped to %s%2d" TERM_RESET " is %s\n",
+		       ch+1,
+		       ch == ch_target ? TERM_DIM : TERM_INVERT TERM_BOLD,
+		       ch_target+1,
+		       filter_status(ch));
 	}
-	printf("MIDI w/o channel is %s\n", filter_status(CHANNEL_MAX));
+	printf("MIDI without channel          is %s\n", filter_status(CHANNEL_MAX));
 }
 
 void print_configuration_brief() {

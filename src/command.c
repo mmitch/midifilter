@@ -43,6 +43,13 @@ static void bank_select(midi_channel ch, int arg) {
 	alsa_write(&bank_select);
 }
 
+static void map_midi_channel(midi_channel ch, int arg) {
+	// FIXME: use proper argument definition in parse.h, eg. "CHANNEL, CHANNEL" for this
+	if (arg > 0 && arg <= CHANNEL_MAX) {
+		set_channel_target(ch, arg-1);
+	}
+}
+
 static void program_change(midi_channel ch, int arg) {
 	snd_seq_event_t program_change;
 
@@ -88,6 +95,7 @@ static const cmd commands[] = {
 	CMD('b', true,  "bank",    "bank select: send a coarse Bank Select control event (CC#0)", bank_select),
 	CMD('h', false, NULL,      "help: list available commands", show_help),
 	CMD('l', false, NULL,      "list current configuration", show_configuration),
+	CMD('m', true,  "target",  "map midi channel to other channel", map_midi_channel),
 	CMD('o', true,  NULL,      "on/off: toggle midi channel", toggle_midi_channel),
 	CMD('O', false, NULL,      "on/off: toggle midi events w/o channel", toggle_midi_no_channel),
 	CMD('p', true,  "program", "program change: send a Program Change control event", program_change),
