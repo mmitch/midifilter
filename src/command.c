@@ -85,7 +85,7 @@ static void toggle_midi_no_channel(midi_channel ch, int arg) {
 static void show_help(midi_channel, int);
 
 static const cmd commands[] = {
-	CMD('b', true, "bank",     "bank select: send a coarse Bank Select control event (CC#0)", bank_select),
+	CMD('b', true,  "bank",    "bank select: send a coarse Bank Select control event (CC#0)", bank_select),
 	CMD('h', false, NULL,      "help: list available commands", show_help),
 	CMD('l', false, NULL,      "list current configuration", show_configuration),
 	CMD('o', true,  NULL,      "on/off: toggle midi channel", toggle_midi_channel),

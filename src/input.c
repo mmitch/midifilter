@@ -22,13 +22,16 @@
 
 #include "input.h"
 
-#include <stdio.h>
+#include <stdlib.h>
+
+#include <readline/history.h>
+#include <readline/readline.h>
 
 #include "command.h"
 #include "display.h"
 #include "state.h"
 
-#define BUFLEN 16
+#define BUFLEN 32
 static char buffer[BUFLEN];
 
 static char* format_char_to_buffer(const char c) {
@@ -45,15 +48,30 @@ static char* format_int_to_buffer(const int i) {
 	return buffer;
 }
 
-static void process_command(const cmd* command) {
-	midi_channel channel = -1;
-	int arg = -1;
-	int read;
+static char* format_string_to_buffer(const char *s) {
+	if (snprintf(buffer, BUFLEN, "%s? ", s) >= BUFLEN) {
+		buffer[BUFLEN-3] = '?';
+		buffer[BUFLEN-2] = ' ';
+		buffer[BUFLEN-1] = '\0';
+	}
+	return buffer;
+}
 
-	if (command->channel_argument) {
-		print_prompt("MIDI channel");
-		read = scanf("%d", &channel);
-		if (read != 1) {
+static void process_command(const cmd* command, const char* input) {
+	midi_channel channel;
+	int arg;
+
+	int items_read = sscanf(input, "%d%d", &channel, &arg);
+
+	if (command->channel_argument && items_read < 1) {
+		char *input_channel = readline(format_string_to_buffer("MIDI channel"));
+		if (input_channel == NULL) {
+			print_error("input could not be parsed", "MIDI channel");
+			return;
+		}
+		items_read = sscanf(input_channel, "%d%d", &channel, &arg);
+		free(input_channel);
+		if (items_read < 1) {
 			print_error("input could not be parsed", "MIDI channel");
 			return;
 		}
@@ -63,11 +81,16 @@ static void process_command(const cmd* command) {
 		}
 		channel--;
 	}
-
-	if (command->argument_name != NULL) {
-		print_prompt(command->argument_name);
-		read = scanf("%d", &arg);
-		if (read != 1) {
+	
+	if (command->argument_name != NULL && items_read < 2) {
+		char *input_argument = readline(format_string_to_buffer(command->argument_name));
+		if (input_argument == NULL) {
+			print_error("input could not be parsed", command->argument_name);
+			return;
+		}
+		items_read = sscanf(input_argument, "%d", &arg);
+		free(input_argument);
+		if (items_read < 1) {
 			print_error("input could not be parsed", command->argument_name);
 			return;
 		}
@@ -76,29 +99,31 @@ static void process_command(const cmd* command) {
 			return;
 		}
 	}
-
+	
 	command->handler(channel, arg);
 }
 
 void run_user_input_loop() {
-	char input;
-	int read;
 	const cmd* command;
 
 	do {
-		print_prompt("command");
-		do {
-			read = scanf("%c", &input);
-		} while (read != 1 || input == '\n');
-
-		command = get_command(input);
-		if (command != NULL) {
-			process_command(command);
-		}
-		else {
-			print_error("unknown command", format_char_to_buffer(input));
+		char* input = readline("command? ");
+		if (input == NULL) {
+			continue;
 		}
 
+		if (strlen(input) > 0) {
+			add_history(input);
+			command = get_command(input[0]);
+			if (command != NULL) {
+				process_command(command, input+1);
+			}
+			else {
+				print_error("unknown command", format_char_to_buffer(input[0]));
+			}
+		}
+
+		free(input);
 		print_spacer();
 	} while (continue_running());
 }

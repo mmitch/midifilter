@@ -9,7 +9,7 @@
 - [X] filter MIDI channels
 - [X] output current configuration
 
-* [3/9] features
+* [3/10] features
 
 - [ ] unit tests
 - [ ] code coverage
@@ -20,3 +20,4 @@
 - [ ] remap MIDI channels
 - [ ] proper terminal handling using terminfo
 - [ ] remove newlines from keyboard input
+- [ ] add install/uninstall targets (also update README)

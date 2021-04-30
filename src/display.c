@@ -63,10 +63,6 @@ void print_error(const char* message, const char* reason) {
 	fprintf(stderr, "%s: %s\n", message, reason);
 }
 
-void print_prompt(const char* text) {
-	printf(TERM_UNDERLINE "%s ?" TERM_RESET " ", text);
-}
-
 void print_spacer() {
 	puts("");
 }

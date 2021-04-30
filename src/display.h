@@ -30,7 +30,6 @@ void print_command(const cmd* command);
 void print_configuration();
 void print_configuration_brief();
 void print_error(const char* message, const char* reason);
-void print_prompt(const char* text);
 void print_spacer();
 void print_status(const char* status);
 

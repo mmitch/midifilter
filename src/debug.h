@@ -26,5 +26,6 @@
 #include <stdio.h>
 
 #define DEBUG_int(x)   do { printf("%s = %d\n", #x, (x)); } while (0);
+#define DEBUG_str(x)   do { printf("%s = %s\n", #x, (x)); } while (0);
 
 #endif
