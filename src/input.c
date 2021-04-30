@@ -79,8 +79,8 @@ static void process_command(const cmd* command, const char* input) {
 			print_error("MIDI channel out of range", format_int_to_buffer(channel));
 			return;
 		}
-		channel--;
 	}
+	channel--;
 	
 	if (command->argument_name != NULL && items_read < 2) {
 		char *input_argument = readline(format_string_to_buffer(command->argument_name));
