@@ -1,6 +1,6 @@
 # Makefile - build script for midifilter
 #
-# Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+# Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
 # Licensed under GNU GPL v3 (or later)
 #
 # This file is part of midifilter, a software MIDI filter.
@@ -22,7 +22,7 @@
 SHELL := bash
 
 pkgconfigs := alsa
-warnings   := -Wall -Wextra -Wpedantic -Werror
+warnings   := -Wall -Wextra -Wpedantic -Werror -std=c99
 libs       := -lpthread -lreadline
 
 ifeq ($(shell command -v pkg-config),)
