@@ -1,7 +1,7 @@
 /*
  * display.h - display interface
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -25,12 +25,12 @@
 
 #include "command.h"
 
-void clear_screen();
+void clear_screen(void);
 void print_command(const cmd* command);
-void print_configuration();
-void print_configuration_brief();
+void print_configuration(void);
+void print_configuration_brief(void);
 void print_error(const char* message, const char* reason);
-void print_spacer();
+void print_spacer(void);
 void print_status(const char* status);
 
 #endif

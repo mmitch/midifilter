@@ -1,7 +1,7 @@
 /*
  * alsa.c - ALSA MIDI connection
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -29,7 +29,7 @@ static snd_seq_t *sequencer;
 static int port_in;
 static int port_out;
 
-bool alsa_open()
+bool alsa_open(void)
 {
 	int err;
 	
@@ -68,7 +68,7 @@ bool alsa_open()
 	return true;
 }
 
-snd_seq_event_t* alsa_read()
+snd_seq_event_t* alsa_read(void)
 {
 	int bytes_left;
 	snd_seq_event_t *alsa_event;
@@ -95,7 +95,7 @@ void alsa_write (snd_seq_event_t *midi_event) {
 	snd_seq_drain_output(sequencer);
 }
 
-bool alsa_close()
+bool alsa_close(void)
 {
 	int err;
 

@@ -36,7 +36,7 @@ copyright
 ---------
 
 midifilter  -  a software MIDI filter  
-Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>  
+Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>  
 Licensed under GNU GPL v3 (or later)  
 
 This program is free software: you can redistribute it and/or modify

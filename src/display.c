@@ -1,7 +1,7 @@
 /*
  * display.c - show configuration
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -36,7 +36,7 @@ static char* filter_status_brief(midi_channel ch) {
 	return is_channel_active(ch) ? TERM_INVERT TERM_BOLD : TERM_DIM;
 }
 
-void clear_screen() {
+void clear_screen(void) {
 	printf(TERM_CLEAR_SCREEN);
 }
 
@@ -44,7 +44,7 @@ void print_command(const cmd* command) {
 	printf( TERM_INVERT TERM_BOLD " %c " TERM_RESET " - %s\n", command->key, command->description);
 }
 
-void print_configuration() {
+void print_configuration(void) {
 	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
 		midi_channel ch_target = get_channel_target(ch);
 		printf("MIDI channel  " TERM_BOLD "%2d" TERM_RESET " mapped to %s%2d" TERM_RESET " is %s\n",
@@ -56,7 +56,7 @@ void print_configuration() {
 	printf("MIDI without channel          is %s\n", filter_status(CHANNEL_MAX));
 }
 
-void print_configuration_brief() {
+void print_configuration_brief(void) {
 	printf("MIDI channels: ");
 	for (midi_channel ch = 0; ch < CHANNEL_MAX; ch++) {
 		printf("%s%2d%s  ", filter_status_brief(ch), ch+1, TERM_RESET);
@@ -68,7 +68,7 @@ void print_error(const char* message, const char* reason) {
 	fprintf(stderr, "%s: %s\n", message, reason);
 }
 
-void print_spacer() {
+void print_spacer(void) {
 	puts("");
 }
 

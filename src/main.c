@@ -1,7 +1,7 @@
 /*
  * main.c - main program that orchestrates all other parts
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -28,7 +28,7 @@
 #include "input.h"
 #include "state.h"
 
-int main() {
+int main(void) {
 	print_status(PROGRAM_NAME " is starting");
 
 	bool alsa_init = alsa_open();

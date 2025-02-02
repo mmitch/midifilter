@@ -1,7 +1,7 @@
 /*
  * input.h - interactive control interface
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -23,6 +23,6 @@
 #ifndef _INPUT_H_
 #define _INPUT_H_
 
-void run_user_input_loop();
+void run_user_input_loop(void);
 
 #endif

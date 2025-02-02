@@ -1,7 +1,7 @@
 /*
  * input.c - interactive control thread
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -103,7 +103,7 @@ static void process_command(const cmd* command, const char* input) {
 	command->handler(channel, arg);
 }
 
-void run_user_input_loop() {
+void run_user_input_loop(void) {
 	const cmd* command;
 
 	do {

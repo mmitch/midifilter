@@ -1,7 +1,7 @@
 /*
  * alsa.h - ALSA interface
  *
- * Copyright (C) 2021  Christian Garbs <mitch@cgarbs.de>
+ * Copyright (C) 2021-2025  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL v3 (or later)
  *
  * This file is part of midifilter, a software MIDI filter.
@@ -27,9 +27,9 @@
 
 #include <alsa/asoundlib.h>
 
-bool alsa_open();
-snd_seq_event_t* alsa_read();
+bool alsa_open(void);
+snd_seq_event_t* alsa_read(void);
 void alsa_write (snd_seq_event_t *midi_event);
-bool alsa_close();
+bool alsa_close(void);
 
 #endif
