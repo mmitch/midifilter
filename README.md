@@ -1,8 +1,8 @@
 a software MIDI filter
 ======================
 
-[![Linux Build status](https://github.com/mmitch/midifilter/workflows/Linux%20Build/badge.svg?branch=master)](https://github.com/mmitch/midifilter/actions?query=workflow%3A%22Linux+Build%22)
-[![CodeQL status](https://github.com/mmitch/midifilter/workflows/CodeQL/badge.svg?branch=master)](https://github.com/mmitch/midifilter/actions?query=workflow%3ACodeQL)
+[![Linux Build status](https://github.com/mmitch/midifilter/workflows/Linux%20Build/badge.svg)](https://github.com/mmitch/midifilter/actions?query=workflow%3A%22Linux+Build%22)
+[![CodeQL status](https://github.com/mmitch/midifilter/workflows/CodeQL/badge.svg)](https://github.com/mmitch/midifilter/actions?query=workflow%3ACodeQL)
 
 This project provides an ALSA MIDI client that will resend all
 received MIDI messages (basically MIDI thru in software), but
