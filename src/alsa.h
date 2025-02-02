@@ -25,6 +25,9 @@
 
 #include <stdbool.h>
 
+// ALSA includes don't behave with -std=c99
+#define _POSIX_C_SOURCE 200112L
+#include <alloca.h>
 #include <alsa/asoundlib.h>
 
 bool alsa_open(void);
